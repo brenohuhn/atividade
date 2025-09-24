@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relógio com Visual do Dia</title>
+  <style>
+    body {
+      transition: background-color 1s;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 50px;
+      background-size: cover;
+     
+    }
+
+    #imagem {
+      width: 600px;
+      max-width: 90%;
+      height: auto;
+      margin-top: 20px;
+      border-radius: 10px;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        font-size: 28px;
+      }
+    }
+  </style>
+  <link rel="manifest" href="manifest.json">
+  <meta name= theme-color content="#000000"
+
+</head>
+<body>
+  <h1 id="Titulo">Bem-vindo(a)!</h1>
+  <p id="hora"></p>
+  <p id="Date"></p>
+  <p id="frase"></p>
+  <p id="frase2"></p>
+  <p id ="frase3"></p>
+  <p id ="frase4"></p>
+
+    <script>
+  function trocar() {
+    const agora = new Date();
+    let frase = "";
+    let frase2 = "";
+    let frase3 = "";
+    let frase4 = "";
+
+    const hora = agora.getHours();
+    const minutos = agora.getMinutes().toString().padStart(2, "0");
+    const segundos = agora.getSeconds().toString().padStart(2, "0");
+    const dataFormada = agora.toLocaleDateString("pt-BR", {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+    let mensagem;
+    let imagemSrc;
+
+    if (hora >= 6 && hora < 12) {
+      mensagem = "Bom dia! ☀️";
+      imagemSrc = 'dia.jpg';
+      frase = "O dia só começa depois do café!";
+    } else if (hora >= 12 && hora < 18) {
+      mensagem = "Boa tarde! ⛅";
+      imagemSrc = 'tarde.jpg';
+      frase2 = "Aproveite o sol porque ele não dura para sempre!";
+    } else if (hora >= 18 && hora < 23) {
+      mensagem = "Boa noite! 😴";
+      imagemSrc = 'noite.jpg';
+       frase3 = "Já ta de noite passou rapido demais!";
+    } else {
+      mensagem = "Boa madrugada! 🌙";
+      imagemSrc = 'madrugada.jpg';
+      frase4 = "ainda acordado?";
+    }
+
+    document.getElementById("Titulo").innerText = mensagem;
+    document.getElementById("hora").innerText = `Hora atual: ${hora.toString().padStart(2, "0")}:${minutos}:${segundos}`;
+    document.getElementById("Date").innerText = `Data: ${dataFormada}`;
+    document.body.style.backgroundImage = 'url(' + imagemSrc + ')';
+    document.getElementById("frase").innerHTML = frase;
+    document.getElementById("frase2").innerHTML = frase2;
+    document.getElementById("frase3").innerHTML = frase3;
+    document.getElementById("frase4").innerHTML = frase4;
+    
+  
+  }
+
+  window.onload = function () {
+    trocar();
+    setInterval(trocar, 1000);
+  };
+
+      
+      
+
+  
+  </script>
+</body>
+</html>
+
